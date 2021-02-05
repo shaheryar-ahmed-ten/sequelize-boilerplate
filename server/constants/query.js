@@ -14,6 +14,5 @@ exports.makeFilterQuery = (whereClause, transform = {}) => {
             whereClause[item] = { [Op.like]: '%' + whereClause[item] + '%' }
         }
     }
-
     return whereClause
 }
