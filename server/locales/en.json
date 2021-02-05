@@ -1,0 +1,15 @@
+{
+	"Data not found": "Data not found",
+	"Server error": "Server error",
+	"Users Success": "Users Success",
+	"users is not defined": "users is not defined",
+	"Identifier 'include' has already been declared": "Identifier 'include' has already been declared",
+	"sort is not defined": "sort is not defined",
+	"column users.offset does not exist": "column users.offset does not exist",
+	"filter is not defined": "filter is not defined",
+	"whereClause is not iterable": "whereClause is not iterable",
+	"Assignment to constant variable.": "Assignment to constant variable.",
+	"Invalid value { key: 'asda' }": "Invalid value { key: 'asda' }",
+	"Op is not defined": "Op is not defined",
+	"Invalid value { '[Op.like]': 'asda' }": "Invalid value { '[Op.like]': 'asda' }"
+}
