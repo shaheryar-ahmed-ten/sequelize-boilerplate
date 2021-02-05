@@ -15,4 +15,5 @@ exports.makeFilterQuery = (whereClause, transform = {}) => {
         }
     }
     return whereClause
+
 }
