@@ -90,24 +90,23 @@ exports.search = async (req, res) => {
         }).catch(err => console.log(err))
 }
 
-exports.login = async (req, res) => {
+async function login(param) {
+    try {
+        const user = await Dao.users.find(param.name)
 
-    // User.findByPk('11')
-    //     .then(user => {
-
-    const user = await User.findOne({
-    })
-
-    if (user) {
-
-        let { token } = issueToken({ id: '1', role: 'Admin' });
-        let refreshToken = issueToken({ id: '1', role: 'Admin' }, '7d');
-        res.sendJSON({ token, refreshToken: refreshToken.token });
+        if (user) {
+            console.log("user", user)
+            let { token } = issueToken({ id: '1', role: 'Admin' });
+            let refreshToken = issueToken({ id: '1', role: 'Admin' }, '7d');
+            return { status: httpStatus.OK, message: messages.user_success, data: { token, refreshToken: refreshToken.token } }
+        } else {
+            return { status: httpStatus.CONFLICT, message: "NO USER FOUND", code: messages.user_failed }
+        }
+    } catch (err) {
+        return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
     }
-    console.log("user", user)
-    res.sendJSON(user)
 }
 
 module.exports = {
-    getAllUsers, getUserById, addUser
+    getAllUsers, getUserById, addUser, login
 }

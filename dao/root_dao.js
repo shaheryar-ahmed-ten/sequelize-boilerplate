@@ -1,5 +1,5 @@
 const db = require("../sequelize/index")
-const models = require("../sequelize/index")
+const models = require("../sequelize/models/index")
 const { Op } = require("sequelize");
 const { makeFilterQuery } = require("../server/constants/query")
 
@@ -61,6 +61,7 @@ class RootDao {
         })
         return record
     }
+
 }
 
 module.exports = RootDao

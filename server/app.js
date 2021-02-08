@@ -5,10 +5,12 @@ const path = require("path")
 const fs = require("fs")
 const { middlewares } = require("../config/app");
 const i18n = require("i18n");
+const passport = require("../library/passport")
 
 
 const app = express()
 
+app.use(passport.initialize())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 

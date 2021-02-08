@@ -28,7 +28,11 @@ router.post("/", async (req, res) => {
 
 // router.post("/addmany", controller.addMany)
 
-// router.post("/login", controller.login)
+router.post("/login", async (req, res) => {
+    const response = await controller.login(req.body)
+    if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
+    else res.sendError(response.code, response.message, response.status)
+})
 // router.get("/search", controller.search)
 // router.get("/:id", controller.getUserById)
 // router.put("/:id", controller.updateUser)

@@ -1,78 +1,79 @@
-"use strict";
+// "use strict";
 
-const fs = require("fs");
-const path = require("path");
-const Sequelize = require("sequelize");
-const dbConfig = require("../sequelize");
+// const fs = require("fs");
+// const path = require("path");
+// const Sequelize = require("sequelize");
+// const dbConfig = require("../sequelize");
+// const mypkg = require("shaheryar-npm")
 
-const fileNamePostfix = "Model.js";
-const fileNameFilter = (name) => {
-    return (
-        name.indexOf(".") !== 0 &&
-        name.lastIndexOf(fileNamePostfix) === name.length - fileNamePostfix.length
-    );
-};
-console.log(dbConfig);
-const sequelize = new Sequelize({
-    username: 'postgres',
-    password: '123',
-    database: 'mydb',
-    host: 'localhost',
-    dialect: 'postgresql',
-});
+// const fileNamePostfix = "Model.js";
+// const fileNameFilter = (name) => {
+//     return (
+//         name.indexOf(".") !== 0 &&
+//         name.lastIndexOf(fileNamePostfix) === name.length - fileNamePostfix.length
+//     );
+// };
+// console.log(dbConfig);
+// const sequelize = new Sequelize({
+//     username: 'postgres',
+//     password: '123',
+//     database: 'mydb',
+//     host: 'localhost',
+//     dialect: 'postgresql',
+// });
+// console.log("-------------------------------------------------------------\nmyPkg", mypkg(1, 2))
+// const db = {};
 
-const db = {};
+// sequelize
+//     .authenticate()
+//     .then(function (success) {
+//         console.info("Database connection OK!");
+//         console.info(dbConfig.database);
+//     })
+//     .catch(function (error) {
+//         console.error("Unable to connect to the database:");
+//         console.error(error.message);
+//         process.exit(1);
+//     });
 
-sequelize
-    .authenticate()
-    .then(function (success) {
-        console.info("Database connection OK!");
-        console.info(dbConfig.database);
-    })
-    .catch(function (error) {
-        console.error("Unable to connect to the database:");
-        console.error(error.message);
-        process.exit(1);
-    });
+// const defineWrapper = function () {
+//     const modelParams = arguments[2];
+//     const model = sequelize.define.apply(sequelize, arguments);
 
-const defineWrapper = function () {
-    const modelParams = arguments[2];
-    const model = sequelize.define.apply(sequelize, arguments);
+//     if (modelParams && "classMethods" in modelParams) {
+//         const { classMethods, instanceMethods } = modelParams;
+//         Object.assign(model, classMethods);
+//         Object.assign(model.prototype, instanceMethods);
+//     }
+//     return model;
+// };
 
-    if (modelParams && "classMethods" in modelParams) {
-        const { classMethods, instanceMethods } = modelParams;
-        Object.assign(model, classMethods);
-        Object.assign(model.prototype, instanceMethods);
-    }
-    return model;
-};
+// const v4ComplianceWrapper = { ...sequelize };
+// v4ComplianceWrapper.define = defineWrapper;
 
-const v4ComplianceWrapper = { ...sequelize };
-v4ComplianceWrapper.define = defineWrapper;
+// const loadModel = (file) => {
+//     const filePath = path.join(__dirname, "models", file);
+//     const modelFunc = require(filePath);
+//     const model = modelFunc(v4ComplianceWrapper);
+//     Object.assign(db, { [model.name]: model });
+// };
 
-const loadModel = (file) => {
-    const filePath = path.join(__dirname, "models", file);
-    const modelFunc = require(filePath);
-    const model = modelFunc(v4ComplianceWrapper);
-    Object.assign(db, { [model.name]: model });
-};
+// const applyModelAssociations = (modelName) => {
+//     if ("associate" in db[modelName]) {
+//         console.info(`Execute the association of ${modelName}`);
+//         db[modelName].associate(db);
+//     }
+// };
 
-const applyModelAssociations = (modelName) => {
-    if ("associate" in db[modelName]) {
-        console.info(`Execute the association of ${modelName}`);
-        db[modelName].associate(db);
-    }
-};
+// const modelsList = fs
+//     .readdirSync(path.join(__dirname, "models"))
+//     .filter(fileNameFilter);
 
-const modelsList = fs
-    .readdirSync(path.join(__dirname, "models"))
-    .filter(fileNameFilter);
+// modelsList.forEach(loadModel);
 
-modelsList.forEach(loadModel);
+// Object.keys(db).forEach(applyModelAssociations);
 
-Object.keys(db).forEach(applyModelAssociations);
+// db.sequelize = sequelize;
+// db.Sequelize = Sequelize;
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
-
-module.exports = db;
+// module.exports = db;
