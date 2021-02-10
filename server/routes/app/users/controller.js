@@ -92,7 +92,7 @@ exports.search = async (req, res) => {
 
 async function login(param) {
     try {
-        const user = await Dao.users.find(param.name)
+        const user = await Dao.users.findByEmail(param.email)
 
         if (user) {
             console.log("user", user)

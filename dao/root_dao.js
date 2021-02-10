@@ -18,8 +18,6 @@ class RootDao {
         const { offset, limit, filters, sort } = params;
         const { includeAll = false, include, attributes } = params;
         const whereClause = makeFilterQuery({ ...filters });
-        console.log("------------------------------------------------------")
-        console.log("WHERE CLAUSE:", whereClause)
         const _params = { where: whereClause, limit, offset, order: sort };
         if (includeAll) _params.include = [{ all: true }];
         if (include) _params.include = include;
@@ -58,6 +56,13 @@ class RootDao {
     async find(term) {
         const record = await this.model.findOne({
             where: { name: term }
+        })
+        return record
+    }
+
+    async findByEmail(email) {
+        const record = await this.model.findOne({
+            where: { email }
         })
         return record
     }

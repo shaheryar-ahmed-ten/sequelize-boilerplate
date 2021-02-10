@@ -1,33 +1,28 @@
-const Sequelize = require("sequelize");
+require("dotenv").config()
+
 
 const dbConfig = {
-    username: 'postgres',
-    password: '123',
-    database: 'mydb',
-    host: 'localhost',
-    dialect: 'postgresql',
+    "development": {
+        "username": process.env.DB_USER,
+        "password": process.env.DB_PASSWORD,
+        "database": process.env.DB_DATABASE,
+        "host": process.env.DB_HOST,
+        "dialect": process.env.DB_DIALECT
+    },
+    "test": {
+        "username": process.env.DB_USER,
+        "password": process.env.DB_PASSWORD,
+        "database": process.env.DB_DATABASE,
+        "host": process.env.DB_HOST,
+        "dialect": process.env.DB_DIALECT
+    },
+    "production": {
+        "username": process.env.DB_USER,
+        "password": process.env.DB_PASSWORD,
+        "database": process.env.DB_DATABASE,
+        "host": process.env.DB_HOST,
+        "dialect": process.env.DB_DIALECT
+    }
 }
 
 module.exports = dbConfig
-
-// const sequelize = new Sequelize({
-//     username: 'postgres',
-//     password: '123',
-//     database: 'mydb',
-//     host: 'localhost',
-//     dialect: 'postgres',
-// });
-
-// sequelize
-//     .authenticate()
-//     .then(function (success) {
-//         console.info("Database connection OK!", success);
-//         console.info(dbConfig.database);
-//     })
-//     .catch(function (error) {
-//         console.error("Unable to connect to the database:");
-//         console.error(error.message);
-//         process.exit(1);
-//     });
-
-// module.exports = sequelize
