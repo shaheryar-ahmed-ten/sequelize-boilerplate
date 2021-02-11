@@ -7,7 +7,6 @@ const { middlewares } = require("../config/app");
 const i18n = require("i18n");
 const passport = require("../library/passport")
 const logCat = require("../library/logger")("app")
-const { getUniqueArray, dateCompCurrent } = require("parse-my-object")
 
 
 const app = express()
