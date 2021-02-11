@@ -8,38 +8,34 @@ const httpStatus = require("http-status")
 
 const messages = {
     user_success: "Users Success",
-    user_failed: "Users Success",
+    user_failed: "Users Failer",
+    notFound: "User Not Found",
+    found: "User Found"
 }
 
 
 async function getAllUsers(params) {
     try {
         const users = await Dao.users.getAll(params);
+        console.log("USERS", users)
         return { status: httpStatus.OK, message: messages.user_success, data: users }
     } catch (err) {
-        return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
+        return { err: err, message: err.message }
     }
 }
 
 async function getUserById(params) {
     try {
-        // const user = await User.findOne({
-        //     where: { id: req.params.id }
-        // })
-        // const user = await Myuser.getById()
         const user = await Dao.users.getById(req.params.id)
 
-        console.log("user", user)
-
         if (user) {
-            res.sendJSON(user)
+            return { data: user, message: messages.found, status: httpStatus.OK }
         } else {
-            res.sendError(null, error("notFound").message)
+            return { data: null, message: message.notFound, status: httpStatus.OK }
         }
 
     } catch (err) {
-        console.log("ERROR:", err)
-        res.sendError(err, error("serverError").message)
+        return { message: err.message, status: httpStatus.CONFLICT }
     }
 }
 
@@ -52,47 +48,37 @@ async function addUser(params) {
     }
 }
 
-exports.addMany = async (req, res) => {
-    await Dao.users.addBulk(req.body).then(users => res.send(users))
-        .catch(err => res.send(err.message))
-}
-
-exports.updateUser = async (req, res) => {
+async function addMany(params) {
     try {
-
-        // let myuser = await User.findByPk(req.params.id)
-        const myuser = await Dao.users.update(req.body, req.params.id)
-        console.log("myUSER:", myuser)
-        res.send(myuser)
+        const user = await Dao.users.addBulk(params)
+        return { status: httpStatus.OK, message: messages.user_success, data: user }
     } catch (err) {
-        console.log("error:", err)
-        res.send("err");
-    }
-
-}
-
-exports.deleteUser = async (req, res) => {
-    try {
-        const user = await Dao.users.delete(req.params.id)
-        console.log("user", user)
-        res.send("deleted")
-    } catch (err) {
-        console.log("ERROR:", err)
-        res.send(err);
+        return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
     }
 }
 
-exports.search = async (req, res) => {
-    await Dao.users.find(req.params.id)
-        .then(user => {
-            // console.log("users", users)
-            res.send(user)
-        }).catch(err => console.log(err))
+async function updateUser(body, id) {
+    try {
+        const user = await Dao.users.update(body, id)
+        return { status: httpStatus.OK, message: messages.user_success, data: user }
+    } catch (err) {
+        return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
+    }
 }
+
+async function deleteUser(id) {
+    try {
+        const user = await Dao.users.delete(id)
+        return { status: httpStatus.OK, message: messages.user_success, data: user }
+    } catch (err) {
+        return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
+    }
+}
+
 
 async function login(param) {
     try {
-        const user = await Dao.users.findByEmail(param.email)
+        const user = await Dao.users.findByEmailPass(param.email, param.password)
 
         if (user) {
             console.log("user", user)
@@ -103,10 +89,11 @@ async function login(param) {
             return { status: httpStatus.CONFLICT, message: "NO USER FOUND", code: messages.user_failed }
         }
     } catch (err) {
+        console.log("ERROR", err)
         return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
     }
 }
 
 module.exports = {
-    getAllUsers, getUserById, addUser, login
+    getAllUsers, getUserById, addUser, login, updateUser, deleteUser
 }

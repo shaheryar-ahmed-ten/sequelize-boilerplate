@@ -2,6 +2,7 @@ const db = require("../sequelize/index")
 const models = require("../sequelize/models/index")
 const { Op } = require("sequelize");
 const { makeFilterQuery } = require("../server/constants/query")
+const { encrypt } = require("../library/encryption")
 
 class RootDao {
     constructor(modelName) {
@@ -16,11 +17,12 @@ class RootDao {
 
     async getAll(params) {
         const { offset, limit, filters, sort } = params;
-        const { includeAll = false, include, attributes } = params;
+        let { includeAll = false, include, attributes } = params;
         const whereClause = makeFilterQuery({ ...filters });
         const _params = { where: whereClause, limit, offset, order: sort };
         if (includeAll) _params.include = [{ all: true }];
         if (include) _params.include = include;
+        attributes = ['id', ['firstName', 'name'], "email"]
         if (attributes) _params.attributes = attributes;
         const { count, rows } = await this.model.findAndCountAll(_params);
         if (!rows) return null;
@@ -28,7 +30,9 @@ class RootDao {
     }
 
     async add(params) {
+        params.password = params.password ? encrypt(params.password) : undefined
         const record = await this.model.create(params)
+        console.log("RECORD", record)
         return record
     }
 
@@ -59,14 +63,6 @@ class RootDao {
         })
         return record
     }
-
-    async findByEmail(email) {
-        const record = await this.model.findOne({
-            where: { email }
-        })
-        return record
-    }
-
 }
 
 module.exports = RootDao

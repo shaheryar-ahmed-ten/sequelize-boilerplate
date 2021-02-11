@@ -4,7 +4,6 @@ const router = express.Router();
 
 fs.readdirSync(__dirname).forEach((file) => {
     if (fs.statSync(`${__dirname}/${file}`).isDirectory()) {
-        console.log(`module:${file}`)
         router.use(`/${file}`, require(`./${file}/routes.js`));
     }
 });

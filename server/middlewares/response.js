@@ -7,7 +7,6 @@ module.exports = function (req, res, next) {
     }
     req.offset = req.query.offset ? req.query.offset : 0;
     req.query.limit = req.query.limit ? req.query.limit : limit;
-    console.log("REQUEST offset:", req.offset, "\treq query:", req.query)
     // const lang = (req.get('LANG') || req.headers['LANG'] || 'en').toString();
     // req.setLocale(lang == 'ar' ? 'ur' : lang)
     res.sendJson = (data, msg = null) => {
@@ -22,11 +21,11 @@ module.exports = function (req, res, next) {
 
     res.sendError = (error_obj, msg = null, status = 200) => {
         logCat(`==================================================================================\n`)
-        logCat(`url: ${req.originalUrl}`)
+        logCat(`url:${req.method} ${req.originalUrl}`)
         logCat(error_obj)
         logCat(`==================================================================================\n`)
         // writeLog({"scheme": req.protocol, "url": req.originalUrl, "RequestMethod": req.method, "IP": req.ip, "headers": req.headers, "body": req.body, "query": req.query, "res": res.statusCode}, msg)
-        res.status(status).json({ status: false, message: msg ? msg : null, data: null, error: error_obj });
+        res.status(status).json({ status: false, message: msg, data: null, error: error_obj });
     }
     next();
 }

@@ -6,6 +6,7 @@ const fs = require("fs")
 const { middlewares } = require("../config/app");
 const i18n = require("i18n");
 const passport = require("../library/passport")
+const logCat = require("../library/logger")("app")
 const { getUniqueArray, dateCompCurrent } = require("parse-my-object")
 
 
@@ -31,7 +32,7 @@ app.use(i18n.init);
 
 fs.readdirSync('./server/routes/').forEach((file) => {
     if (fs.statSync(`./server/routes/${file}`).isDirectory()) {
-        console.log(`adding route ${__dirname}/${file} file:${file}`);
+        logCat(`adding route ${__dirname}/${file} file:${file}`);
         app.use(`/${file}`, require(`./routes/${file}/routes.js`)) // /app , ./routes/app/routes.js
     }
 });
