@@ -2,7 +2,7 @@ const RootDao = require("./root_dao")
 
 class TestDao extends RootDao {
     constructor() {
-        super("test")
+        super("tests")
     }
 }
 

@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     if (authorization !== 'undefined') {
         passport.authenticate("jwt", {session: false},(_, user, err) => {
             if(err || _){
-                res.sendError(err, _ || "Un-Authorized user !", 401);
+                res.sendError(401, _ || "Un-Authorized user !", err);
             }else{
                 req.user = user
                 next();
@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
                 req.path.indexOf("api-docs") > -1){
                  next()    
              }else{
-                 res.sendError(null, "Un-Authorized user !", 401);
+                 res.sendError(401, "Un-Authorized user !", null);
              }
          }else{
              next()

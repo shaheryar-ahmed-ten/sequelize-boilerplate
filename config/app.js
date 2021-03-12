@@ -6,7 +6,7 @@ module.exports = {
     },
     auth: {
         encryptKey: process.env.AUTH_KEY.split(",").map(c => parseInt(c)),
-        securePath: ["users"]
+        securePath: []
     },
     middlewares: [
         { "url": "./middlewares/response", "pos": "before" },

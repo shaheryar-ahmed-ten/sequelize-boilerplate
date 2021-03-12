@@ -17,7 +17,6 @@ const messages = {
 async function getAllUsers(params) {
     try {
         const users = await Dao.users.getAll(params);
-        console.log("USERS", users)
         return { status: httpStatus.OK, message: messages.user_success, data: users }
     } catch (err) {
         return { err: err, message: err.message }

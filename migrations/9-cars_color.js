@@ -5,25 +5,25 @@ var Sequelize = require('sequelize');
 /**
  * Actions summary:
  *
- * addColumn "password" to table "users"
+ * addColumn "color" to table "cars"
  *
  **/
 
 var info = {
-    "revision": 2,
-    "name": "users",
-    "created": "2021-02-10T07:45:27.743Z",
+    "revision": 9,
+    "name": "cars_color",
+    "created": "2021-02-23T14:50:56.363Z",
     "comment": ""
 };
 
 var migrationCommands = [{
     fn: "addColumn",
     params: [
-        "users",
-        "password",
+        "cars",
+        "color",
         {
             "type": Sequelize.STRING,
-            "field": "password"
+            "field": "color"
         }
     ]
 }];

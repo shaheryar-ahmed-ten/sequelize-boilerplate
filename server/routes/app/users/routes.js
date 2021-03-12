@@ -4,6 +4,7 @@ const controller = require("./controller")
 const httpStatus = require("http-status")
 const logger = require('../../../../library/logger')("app")
 debug = require('debug')('http')
+const { modelWiseFilters } = require("../../../../sequelize/models")
 
 
 
@@ -15,7 +16,13 @@ router.get("/", async (req, res) => {
     const params = {
         filters,
         limit,
-        offset
+        offset,
+        include: [{
+            model: models.accounts, as: "accounts",
+            where: modelWiseFilters(filters, "accounts"),
+            attributes: ["id"]
+        }
+        ]
     }
     const response = await controller.getAllUsers(params);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
@@ -60,7 +67,8 @@ router.get("/search", async (req, res) => {
     const params = {
         filters,
         limit,
-        offset
+        offset,
+        include: ["accounts"]
     }
     const response = await controller.getAllUsers(params);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)

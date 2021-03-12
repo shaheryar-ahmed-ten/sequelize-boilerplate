@@ -1,5 +1,78 @@
 {
     "tables": {
+        "accounts": {
+            "tableName": "accounts",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "bank": {
+                    "field": "bank",
+                    "seqType": "Sequelize.STRING"
+                },
+                "type": {
+                    "field": "type",
+                    "seqType": "Sequelize.STRING"
+                },
+                "userId": {
+                    "field": "userId",
+                    "allowNull": true,
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "NO ACTION",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "cars": {
+            "tableName": "cars",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "name": {
+                    "field": "name",
+                    "seqType": "Sequelize.STRING"
+                },
+                "year": {
+                    "field": "year",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "field": "createdAt",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "field": "updatedAt",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
         "users": {
             "tableName": "users",
             "schema": {
@@ -10,17 +83,21 @@
                     "field": "id",
                     "seqType": "Sequelize.INTEGER"
                 },
-                "firstName": {
-                    "field": "firstName",
-                    "seqType": "Sequelize.STRING"
-                },
-                "lastName": {
-                    "field": "lastName",
+                "name": {
+                    "field": "name",
                     "seqType": "Sequelize.STRING"
                 },
                 "email": {
                     "field": "email",
                     "seqType": "Sequelize.STRING"
+                },
+                "age": {
+                    "field": "age",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "isActive": {
+                    "field": "isActive",
+                    "seqType": "Sequelize.BOOLEAN"
                 },
                 "createdAt": {
                     "allowNull": false,
@@ -36,5 +113,5 @@
             "indexes": []
         }
     },
-    "revision": 1
+    "revision": 10
 }

@@ -11,10 +11,10 @@ module.exports = (req, res, next) => {
                 req.user = { "id": auth.id, "role": auth.role };
                 next()
             } else {
-                res.sendError(null, "Your authentication token has been expired !", 401);
+                res.sendError(401, "Your authentication token has been expired !", null);
             }
         } else {
-            res.sendError(null, "Your authentication token has been expired !", 401);
+            res.sendError(401, "Your authentication token has been expired !", null);
         }
     } else {
         const is_secure = appConfig.auth.securePath.some(path => {
@@ -25,7 +25,7 @@ module.exports = (req, res, next) => {
             if (req.path.indexOf("check") > -1 || req.path.indexOf("register") > -1 || req.path.indexOf("login") > -1 || req.path.indexOf("api-docs") > -1) {
                 next()
             } else {
-                res.sendError(null, "Un-Authorized", 401);
+                res.sendError(401, "Un-Authorized", null);
             }
         } else {
             next()

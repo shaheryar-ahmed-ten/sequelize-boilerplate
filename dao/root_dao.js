@@ -22,8 +22,8 @@ class RootDao {
         const _params = { where: whereClause, limit, offset, order: sort };
         if (includeAll) _params.include = [{ all: true }];
         if (include) _params.include = include;
-        attributes = ['id', ['firstName', 'name'], "email"]
         if (attributes) _params.attributes = attributes;
+        console.log("---------------------------------------------\nPARAMS", _params)
         const { count, rows } = await this.model.findAndCountAll(_params);
         if (!rows) return null;
         return { count, records: rows };

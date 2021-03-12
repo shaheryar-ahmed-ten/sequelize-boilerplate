@@ -13,7 +13,10 @@ router.get("/", async (req, res) => {
     const params = {
         filters,
         limit,
-        offset
+        offset,
+        include: [
+            'user'
+        ]
     }
     const response = await controller.getAllTests(params);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)

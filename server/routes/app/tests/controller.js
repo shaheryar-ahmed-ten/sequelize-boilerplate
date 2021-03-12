@@ -14,10 +14,11 @@ const messages = {
 
 async function getAllTests(params) {
     try {
-        const tests = await Dao.tests.getAll(params);
+        const tests = await Dao.accounts.getAll(params);
+        
         return { status: httpStatus.OK, message: messages.user_success, data: tests }
     } catch (err) {
-        console.log("ERROR:",err)
+        console.log("ERROR:", err)
         return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
     }
 }
