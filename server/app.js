@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use((req, res, next) => {
-    const log = {"scheme": req.protocol, "url": req.originalUrl, "RequestMethod": req.method, "IP": req.ip, "headers": req.headers, "body": req.body, "file": req.file, "files": req.files, "query": req.query, "res": res.statusCode}
+    const log = { "scheme": req.protocol, "url": req.originalUrl, "RequestMethod": req.method, "IP": req.ip, "headers": req.headers, "body": req.body, "file": req.file, "files": req.files, "query": req.query, "res": res.statusCode }
     logCat(log)
     next();
 })
@@ -43,6 +43,11 @@ fs.readdirSync('./server/routes/').forEach((file) => {
     }
 });
 
+middlewares.forEach((middleware) => {
+    if (middleware.pos === "after") {
+        app.use(require(middleware.url))
+    }
+})
 
 // app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 // app.set('view engine', 'handlebars');

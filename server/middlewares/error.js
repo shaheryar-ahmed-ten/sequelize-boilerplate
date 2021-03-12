@@ -1,3 +1,3 @@
 module.exports = (req, res, next) => {
-    res.sendError(null, "Route not found")
+    res.sendError(404, "Route not found", null)
 }
