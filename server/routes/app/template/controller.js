@@ -1,5 +1,5 @@
 const httpStatus = require("http-status")
-const { AddValidation } = require("./validation")
+const { AddValidation, UpdateValidation } = require("./validation")
 const Dao = require("../../../../dao")
 
 
@@ -18,7 +18,7 @@ const messages = {
 async function getTemplate(params) {
     try {
         const templates = await Dao.templates.getAll(params)
-        if (templates.length)
+        if (templates.count)
             return { status: httpStatus.OK, message: messages.found, data: templates }
         else
             return { status: httpStatus.OK, message: messages.notFound, data: null }
@@ -58,8 +58,13 @@ async function getTemplateById(id) {
 
 async function updateTemplate(body, id) {
     try {
-        const template = await Dao.templates.update(body, id)
-        return { status: httpStatus.OK, message: messages.updated, data: template }
+        const isValid = await UpdateValidation.validateAsync(body)
+        if (isValid) {
+            const template = await Dao.templates.update(body, id)
+            return { status: httpStatus.OK, message: messages.updated, data: template }
+        } else {
+            return { data: null, message: message.notFound, status: httpStatus.OK }
+        }
     } catch (err) {
         return { status: httpStatus.CONFLICT, message: messages.failed, code: err.message }
     }
