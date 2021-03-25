@@ -19,13 +19,14 @@ module.exports = function (req, res, next) {
         res.json(resObj);
     }
 
-    res.sendError = (error_obj, msg = null, status = 200) => {
+    res.sendError = (status = 200, message = null, errMsg) => {
         logCat(`==================================================================================\n`)
         logCat(`url:${req.method} ${req.originalUrl}`)
-        logCat(error_obj)
+        logCat(`==================================================================================\nERROR OBJECT:`)
+        logCat(errMsg)
         logCat(`==================================================================================\n`)
         // writeLog({"scheme": req.protocol, "url": req.originalUrl, "RequestMethod": req.method, "IP": req.ip, "headers": req.headers, "body": req.body, "query": req.query, "res": res.statusCode}, msg)
-        res.status(status).json({ status: false, message: msg, data: null, error: error_obj });
+        res.status(status).json({ status: false, message: message, data: null, error: errMsg });
     }
     next();
 }
