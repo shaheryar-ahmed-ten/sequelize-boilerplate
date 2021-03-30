@@ -13,6 +13,9 @@ const cors = require('cors')
 const app = express()
 app.use(cors())
 
+
+const a = 10
+a = a + 1;
 const swagOpts = {
     info: {
         version: '1.0.0',
