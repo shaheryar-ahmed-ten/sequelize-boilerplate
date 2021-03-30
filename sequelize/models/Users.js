@@ -92,18 +92,6 @@ module.exports = function (sequelize) {
             as: 'roles',
             foreignKey: 'user_id'
         });
-        Users.hasMany(models.user_carts, {
-            foreignKey: { name: "userId", allowNull: false },
-            as: "user_carts"
-        });
-        Users.hasMany(models.orders, {
-            foreignKey: { name: "userId", allowNull: false },
-            as: "userOrders"
-        });
-        Users.hasMany(models.orders, {
-            foreignKey: { name: "acceptedBy", allowNull: true },
-            as: "acceptedOrders"
-        });
     };
     return Users;
 };

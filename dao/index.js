@@ -1,5 +1,5 @@
 module.exports = {
-    users: require("./user_dao"),
+    users: require("./UserDao"),
     accounts: require("./test_dao"),
     templates: require("./template_dao")
 }
