@@ -24,7 +24,7 @@ async function getTemplate(params) {
             return { status: httpStatus.OK, message: messages.notFound, data: null }
     } catch (err) {
         console.log("ERROR:", err)
-        return { status: httpStatus.CONFLICT, message: err.message, code: messages.failed }
+        return { status: httpStatus.CONFLICT, message: messages.failed, code: err.message }
     }
 }
 async function addTemplate(params) {
