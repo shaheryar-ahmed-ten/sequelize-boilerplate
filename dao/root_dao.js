@@ -51,8 +51,21 @@ class RootDao {
     }
 
     async delete(id) {
+        console.log("CURRENT TIMESTAMP:", new Date())
+        const record = await this.model.update({
+            deletedAt: new Date()
+        }, {
+            where: { id: id },
+            returning: true,
+            plain: true
+        })
+        console.log("RECORD:", record)
+        return `deleted at id=${id}`
+    }
+
+    async hardDelete(id) {
         await this.model.destroy({
-            where: { id: id }
+            where: { id }
         })
         return `deleted at id=${id}`
     }
