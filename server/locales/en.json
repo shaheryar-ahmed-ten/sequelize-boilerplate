@@ -11,5 +11,6 @@
 	"Assignment to constant variable.": "Assignment to constant variable.",
 	"Invalid value { key: 'asda' }": "Invalid value { key: 'asda' }",
 	"Op is not defined": "Op is not defined",
-	"Invalid value { '[Op.like]': 'asda' }": "Invalid value { '[Op.like]': 'asda' }"
+	"Invalid value { '[Op.like]': 'asda' }": "Invalid value { '[Op.like]': 'asda' }",
+	"Login successfully": "Login successfully"
 }
