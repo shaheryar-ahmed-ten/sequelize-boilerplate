@@ -70,15 +70,4 @@ middlewares.forEach((middleware) => {
     }
 })
 
-// app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-// app.set('view engine', 'handlebars');
-
-// app.get('/', (req, res) => {
-//     res.send("INDEX")
-// })
-
-//Users
-// app.use('/users', require('../routes/app/users/routes.js'));
-
-
 module.exports = app
