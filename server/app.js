@@ -10,6 +10,7 @@ const logCat = require("../library/logger")("app")
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 const cors = require('cors')
 
+const app1 = 'app'
 const app = express()
 app.use(cors())
 
