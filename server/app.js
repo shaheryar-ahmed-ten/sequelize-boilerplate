@@ -11,6 +11,7 @@ const expressJSDocSwagger = require('express-jsdoc-swagger');
 const cors = require('cors')
 
 const app1 = 'app'
+const app2 = "app2"
 const app = express()
 app.use(cors())
 
