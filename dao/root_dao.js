@@ -23,10 +23,25 @@ class RootDao {
         if (includeAll) _params.include = [{ all: true }];
         if (include) _params.include = include;
         if (attributes) _params.attributes = attributes;
-        console.log("---------------------------------------------\nPARAMS", _params)
+        _params.where.deletedAt = null
+        // console.log("---------------------------------------------\nPARAMS", _params)
         const { count, rows } = await this.model.findAndCountAll(_params);
         if (!rows) return null;
         return { count, records: rows };
+    }
+
+    async getOne(params) {
+        const { offset, limit, filters, sort } = params;
+        let { includeAll = false, include, attributes } = params;
+        const whereClause = makeFilterQuery({ ...filters });
+        const _params = { where: whereClause, limit, offset, order: sort };
+        if (includeAll) _params.include = [{ all: true }];
+        if (include) _params.include = include;
+        if (attributes) _params.attributes = attributes;
+        _params.where.deletedAt = null
+        // console.log("---------------------------------------------\nPARAMS", _params)
+        const data = await this.model.findOne(_params);
+        return { records: data };
     }
 
     async add(params) {
