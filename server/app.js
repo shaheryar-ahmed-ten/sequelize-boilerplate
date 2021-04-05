@@ -80,3 +80,5 @@ branchtemp2commit2
 branchtemp2commit3
 branchtemp2commit4
 branchtemp2commit5
+temp2commit1
+temp2commit2
