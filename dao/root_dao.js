@@ -66,16 +66,19 @@ class RootDao {
     }
 
     async delete(id) {
-        console.log("CURRENT TIMESTAMP:", new Date())
-        const record = await this.model.update({
-            deletedAt: new Date()
-        }, {
-            where: { id: id },
-            returning: true,
-            plain: true
-        })
-        console.log("RECORD:", record)
-        return `deleted at id=${id}`
+        const exist = await this.model.findByPk(id)
+        console.log("exist", exist)
+        if (exist.dataValues.deletedAt == null) {
+            const record = await this.model.update(
+                { deletedAt: new Date() }, {
+                where: { id: id },
+                returning: true,
+                plain: true
+            })
+            return `deleted at id=${id}`
+        } else {
+            return `record with id=${id} already deleted`
+        }
     }
 
     async hardDelete(id) {
