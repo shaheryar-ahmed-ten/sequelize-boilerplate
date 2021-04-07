@@ -23,7 +23,7 @@ router.get("/", async (req, res) => {
     }
     const response = await controller.getTemplate(params);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
-    else res.sendError(response.status, response.message, response.error)
+    else res.sendError(response.status, response.message, response.code)
 })
 
 /**

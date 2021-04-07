@@ -26,7 +26,7 @@ const authService = new AuthService()
 router.post("/register", async (req, res, next) => {
     const response = await authService.register(req.body);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
-    else res.sendError(response.status, response.message, response.err)
+    else res.sendError(response.status, response.message, response.code)
 })
 
 
@@ -43,7 +43,7 @@ router.post("/register", async (req, res, next) => {
 router.post("/login", async (req, res, next) => {
     const response = await authService.login(req.body);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
-    else res.sendError(response.err, response.message)
+    else res.sendError(response.status, response.message, response.code)
 })
 
 
@@ -59,7 +59,7 @@ router.post("/login", async (req, res, next) => {
 router.post("/forget", async (req, res, next) => {
     const response = await authService.forget(req.body);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
-    else res.sendError(response.err, response.message)
+    else res.sendError(response.status, response.message, response.code)
 })
 
 /**
@@ -75,7 +75,7 @@ router.post("/forget", async (req, res, next) => {
 router.post("/reset", async (req, res, next) => {
     const response = await authService.resetPassword(req.body);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
-    else res.sendError(response.err, response.message)
+    else res.sendError(response.status, response.message, response.code)
 })
 
 /**
@@ -88,7 +88,7 @@ router.post("/reset", async (req, res, next) => {
 router.get("/me", async (req, res, next) => {
     const response = await authService.me(req.user);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
-    else res.sendError(response.err, response.message)
+    else res.sendError(response.status, response.message, response.code)
 })
 
 /**
@@ -107,7 +107,7 @@ router.get("/me", async (req, res, next) => {
 router.put("/me", async (req, res, next) => {
     const response = await authService.updateProfile(req.body, req.user.id);
     if (response.status === httpStatus.OK) res.sendJson(response.data, response.message, response.status)
-    else res.sendError(response.err, response.message)
+    else res.sendError(response.status, response.message, response.code)
 })
 
 module.exports = router
