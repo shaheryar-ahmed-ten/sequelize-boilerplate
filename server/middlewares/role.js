@@ -23,7 +23,8 @@ module.exports = (req, res, next) => {
                 // } else {
                 //     res.sendError(null, "Un-Authorized user !", 401);
                 // }
-                next()
+                // next()
+                res.sendError(401, "Un-Authorized user !", null);
             }
         }
     } else {
