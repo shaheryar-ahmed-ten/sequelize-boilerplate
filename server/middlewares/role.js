@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
         if (_role == "media" || _role == "setting") {
             return next()
         } else {
-            if (String(req.user.role).toLocaleLowerCase() === _role) {
+            if (String(req.user.role).toLocaleLowerCase() === _role || _role == 'auth') {
                 next()
             } else {
                 // const _innerRole = `${_role} ${req.url.split("/")[2]}`;
