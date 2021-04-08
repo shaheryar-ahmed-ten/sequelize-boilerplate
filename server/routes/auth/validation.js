@@ -1,8 +1,10 @@
 const Joi = require('joi');
+const mobile_patt = '^[+]923[0-9]{9}$'
+
 
 const RegisterValidation = Joi.object({
     fullName: Joi.string().required().min(4),
-    mobile: Joi.string().optional(),
+    mobile: Joi.string().regex(RegExp(mobile_patt)).optional(),
     password: Joi.string().min(6).required(),
     email: Joi.string().email().required(),
     role_id: Joi.number().required()
@@ -10,7 +12,7 @@ const RegisterValidation = Joi.object({
 
 const updateValidation = Joi.object({
     fullName: Joi.string().optional().min(4),
-    mobile: Joi.string().optional(),
+    mobile: Joi.string().regex(RegExp(mobile_patt)).optional(),
     password: Joi.string().min(6).optional(),
     email: Joi.string().email().optional(),
     role_id: Joi.number().optional()

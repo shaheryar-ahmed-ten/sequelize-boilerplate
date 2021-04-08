@@ -23,6 +23,7 @@ module.exports = function (sequelize) {
                 unique: true,
                 validate: {
                     notEmpty: { msg: "mobile cannot be empty" },
+                    is: /^[+]923[0-9]{9}$/
                 },
             },
             email: {
