@@ -32,11 +32,11 @@ class AuthService {
         try {
             const isValid = await LoginValidation.validateAsync(params)
             if (isValid) {
-                const user = await DAO.users.authUser(params.email, params.password)
+                const user = await DAO.users.authUser(params.mobile, params.password)
                 if (user) {
                     let tokens = {
-                        token: issueToken({ id: user.id }).token,
-                        refreshToken: issueToken({ id: user.id }, '7d').token
+                        token: issueToken({ id: user.id, role: user.roles[0].name }).token,
+                        refreshToken: issueToken({ id: user.id, role: user.roles[0].name }, '7d').token
                     }
                     return { status: httpStatus.OK, message: messages.LOGIN_SUCCESS, data: tokens }
                 } else {
@@ -46,7 +46,8 @@ class AuthService {
                 return { status: httpStatus.UNPROCESSABLE_ENTITY, message: isValid, code: messages.user_failed }
             }
         } catch (err) {
-            return { status: httpStatus.CONFLICT, message: err.message, code: messages.user_failed }
+            console.log("ERR", err)
+            return { status: httpStatus.CONFLICT, message: err.message, code: err.message }
         }
     }
 
